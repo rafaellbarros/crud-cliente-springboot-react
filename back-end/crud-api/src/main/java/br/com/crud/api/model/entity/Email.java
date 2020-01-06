@@ -22,4 +22,10 @@ public class Email {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
+
+    public Email() { }
+
+    public Email(String enderecoEmail) {
+        this.enderecoEmail = enderecoEmail;
+    }
 }

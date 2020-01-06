@@ -40,4 +40,14 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Email> emails;
 
+    public Cliente() { }
+
+    public Cliente(String nome, String cpf, Endereco endereco, List<Telefone> telefones, List<Email> emails) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.endereco = endereco;
+        this.telefones = telefones;
+        this.emails = emails;
+    }
+
 }

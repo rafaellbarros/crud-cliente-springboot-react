@@ -29,4 +29,10 @@ public class Telefone {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
+    public Telefone() { }
+
+    public Telefone(TipoTelefone tipoTelefone, String numero) {
+        this.tipoTelefone = tipoTelefone;
+        this.numero = numero;
+    }
 }

@@ -1,5 +1,6 @@
 package br.com.crud.api.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -29,6 +30,18 @@ public class Endereco {
     @NotNull(message = "O Campo uf é obrigatório")
     private String uf;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String complemento;
+
+    public Endereco() { }
+
+    public Endereco(String cep, String logradouro, String bairro, String cidade, String uf, String complemento) {
+        this.cep = cep;
+        this.logradouro = logradouro;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.uf = uf;
+        this.complemento = complemento;
+    }
 
 }
