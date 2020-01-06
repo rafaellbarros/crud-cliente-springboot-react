@@ -30,13 +30,13 @@ public class Cliente {
     @JoinColumn(name = "endereco_id", referencedColumnName = "id")
     private Endereco endereco;
 
-    @Valid
-    @NotNull(message = "Pelo menos um telefone é obrigatório")
+    // @Valid
+    // @NotNull(message = "Pelo menos um telefone é obrigatório")
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Telefone> telefones;
 
-    @Valid
-    @NotNull(message = "Pelo menos um email é obrigatório")
+    // @Valid
+    // @NotNull(message = "Pelo menos um email é obrigatório")
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Email> emails;
 
