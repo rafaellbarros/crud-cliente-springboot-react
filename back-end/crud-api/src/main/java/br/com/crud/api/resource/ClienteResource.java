@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/clientes")
 @AllArgsConstructor
+@CrossOrigin(origins = "*", maxAge = 3600) // TODO: Refactoring
 public class ClienteResource {
 
     private ClienteService clienteService;
