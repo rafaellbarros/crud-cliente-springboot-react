@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -28,9 +29,19 @@ public class ClienteService {
 
     @Transactional
     public Cliente salvar(Cliente cliente) {
-        cliente.getTelefones().forEach(c -> c.setCliente(cliente));
-        cliente.getEmails().forEach(c -> c.setCliente(cliente));
+        setClienteGetTelefones(cliente);
+        setClienteGetEmails(cliente);
         return clienteRepository.save(cliente);
+    }
+
+    private void setClienteGetTelefones(Cliente cliente) {
+        if (Objects.nonNull(cliente.getTelefones()))
+            cliente.getTelefones().forEach(c -> c.setCliente(cliente));
+    }
+
+    private void setClienteGetEmails(Cliente cliente) {
+        if (Objects.nonNull(cliente.getEmails()))
+            cliente.getEmails().forEach(c -> c.setCliente(cliente));
     }
 
     public void deletarPorId(Long id) {
@@ -41,17 +52,27 @@ public class ClienteService {
     public Cliente atualizar(Long id, Cliente cliente) {
         Cliente clienteSalvo = buscarPorId(id);
 
-        clienteSalvo.getTelefones().clear();
-        clienteSalvo.getEmails().clear();
-
-        clienteSalvo.getTelefones().addAll(cliente.getTelefones());
-        clienteSalvo.getEmails().addAll(cliente.getEmails());
-
-        clienteSalvo.getTelefones().forEach(c -> c.setCliente(clienteSalvo));
-        clienteSalvo.getEmails().forEach(c -> c.setCliente(clienteSalvo));
+        setTelefonesClienteEClienteSalvo(cliente, clienteSalvo);
+        setEmailsClienteEClienteSalvo(cliente, clienteSalvo);
 
         BeanUtils.copyProperties(cliente, clienteSalvo, "id", "telefones", "emails");
 
         return clienteRepository.save(clienteSalvo);
+    }
+
+    private void setTelefonesClienteEClienteSalvo(Cliente cliente, Cliente clienteSalvo) {
+        if (Objects.nonNull(cliente.getTelefones())) {
+            clienteSalvo.getTelefones().clear();
+            clienteSalvo.getTelefones().addAll(cliente.getTelefones());
+            clienteSalvo.getTelefones().forEach(c -> c.setCliente(clienteSalvo));
+        }
+    }
+
+    private void setEmailsClienteEClienteSalvo(Cliente cliente, Cliente clienteSalvo) {
+        if (Objects.nonNull(cliente.getEmails())) {
+            clienteSalvo.getEmails().clear();
+            clienteSalvo.getEmails().addAll(cliente.getEmails());
+            clienteSalvo.getEmails().forEach(c -> c.setCliente(clienteSalvo));
+        }
     }
 }
