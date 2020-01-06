@@ -30,7 +30,6 @@ public class Endereco {
     @NotNull(message = "O Campo uf é obrigatório")
     private String uf;
 
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String complemento;
 
     public Endereco() { }
